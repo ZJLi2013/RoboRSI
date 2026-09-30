@@ -16,6 +16,12 @@ build/
 *.pyzz
 .venv/
 venv/
+# created in the repo root by scripts/reproduce_libero_pro.sh
+.venv-repro/
+.venv-pyroki/
+LIBERO-PRO/
+LIBERO-PRO-assets/
+.pyroki-server.log
 __pycache__/
 poetry.lock
 .pytest_cache/
