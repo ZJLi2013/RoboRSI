@@ -1374,7 +1374,11 @@ def locate_by_owlv2(env, rgb, target: str, scale: int = 3, thresh: float = 0.05)
     with torch.no_grad():
         out = o["mod"](**inp)
     tsz = torch.tensor([pil.size[::-1]]).to(o["dev"])
-    res = o["proc"].post_process_object_detection(out, threshold=thresh, target_sizes=tsz)[0]
+    # transformers 5 renamed the processor method; pyproject allows both majors.
+    post_process = getattr(
+        o["proc"], "post_process_grounded_object_detection", None
+    ) or o["proc"].post_process_object_detection
+    res = post_process(out, threshold=thresh, target_sizes=tsz)[0]
     boxes = res["boxes"].cpu().numpy()
     scores = res["scores"].cpu().numpy()
     labels = res["labels"].cpu().numpy()
