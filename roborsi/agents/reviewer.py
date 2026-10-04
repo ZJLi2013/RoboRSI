@@ -672,7 +672,7 @@ class Reviewer:
             f"=== MISSING-SKILL SIGNAL (primitive churn) ===\n"
             f"{_missing_skill_signal(trace)}\n\n"
             f"=== INNER TRACE (first 30 steps) ===\n"
-            f"{json.dumps(_sanitize_trace(trace[:30]), default=str)[:6000]}\n\n"
+            f"{json.dumps(_sanitize_trace(trace[:30]), default=str)[:20000]}\n\n"
             f"=== gate_log for this run ===\n"
             f"{json.dumps(gate_log, default=str)[:1500] or '(none)'}\n"
         )
