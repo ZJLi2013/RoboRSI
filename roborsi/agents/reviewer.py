@@ -660,7 +660,11 @@ class Reviewer:
             f"=== summary.md ===\n{summary_md}\n\n"
             f"=== ENGINEER RESULT ===\n"
             f"agent_completion_claim={bool(rollout_meta.get('vlm_declared'))} "
-            f"tool_calls={engineer_result.get('tool_calls')}\n\n"
+            f"tool_calls={engineer_result.get('tool_calls')}\n"
+            # Episode-level verdict only (no object state), so an overclaimed
+            # failure is visible to the Reviewer without leaking GT into skills.
+            f"task_success={bool(engineer_result.get('success'))} "
+            f"outcome={engineer_result.get('outcome')}\n\n"
             f"=== PRIOR HISTORY (this task, across runs — you are a SESSION) ===\n"
             f"{_task_history_block(workspace.task)}\n\n"
             f"=== TOOL RELIABILITY (this run — objective tally) ===\n"
